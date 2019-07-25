@@ -1,6 +1,8 @@
 package com.example.first;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -14,7 +16,9 @@ public class MainActivity extends AppCompatActivity {
     String[][] string_array = new String[3][3];
     int n = 3;
     String N;
-    int score;
+    int score , highScore = 0;
+    SharedPreferences highScore_save;
+    String highScore_display ;
 
 
     @Override
@@ -31,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
         textView_array[2][0] = findViewById(R.id.textView7);
         textView_array[2][1] = findViewById(R.id.textView8);
         textView_array[2][2] = findViewById(R.id.textView9);
+
+        highScore_save = this.getSharedPreferences("HighScoreKey" , MODE_PRIVATE);
+        highScore = highScore_save.getInt("highScoreKey" , 0);
+        getHighScore();
 
         for (i = 0; i <= 2; i++) {
             for (j = 0; j <= 2; j++) {
@@ -92,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
         print();
         setRandom();
+        getHighScore();
+        setHighScore();
 
     }
 
@@ -133,7 +143,10 @@ public class MainActivity extends AppCompatActivity {
 
         print();
         setRandom();
+        getHighScore();
+        setHighScore();
     }
+
 
     public void left(View v) {
         int i,j;
@@ -172,6 +185,8 @@ public class MainActivity extends AppCompatActivity {
 
         print();
         setRandom();
+        getHighScore();
+        setHighScore();
     }
 
     public void right(View v) {
@@ -206,6 +221,8 @@ public class MainActivity extends AppCompatActivity {
         }
         print();
         setRandom();
+        getHighScore();
+        setHighScore();
     }
     public void setRandom(){
         Random x = new Random();
@@ -223,6 +240,21 @@ public class MainActivity extends AppCompatActivity {
         TextView s = findViewById(R.id.score);
         String s1 = Integer.toString(score);
         s.setText(s1);
+        setHighScore();
+        getHighScore();
+    }
+
+    public void setHighScore(){
+        if(score > highScore){
+                highScore = score;
+                highScore_save.edit().putInt("highScoreKey" , highScore).commit();
+
+        }
+    }
+    public void getHighScore(){
+        highScore_display = Integer.toString(highScore);
+        TextView streakCount = findViewById(R.id.highScore);
+        streakCount.setText(highScore_display);
     }
 
 
