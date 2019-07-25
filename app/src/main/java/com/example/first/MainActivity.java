@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     TextView[][] textView_array = new TextView[3][3];
@@ -80,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         print();
+        setRandom();
     }
 
 
@@ -111,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         print();
+        setRandom();
     }
 
     public void left(View v) {
@@ -141,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         print();
+        setRandom();
     }
 
     public void right(View v) {
@@ -169,7 +174,19 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-
+        print();
+        setRandom();
+    }
+    public void setRandom(){
+        Random x = new Random();
+        Random y = new Random();
+        int r,s;
+        do{
+            r=x.nextInt(n);
+            s=y.nextInt(n);
+        }while (int_array[r][s] != 0 );
+        int_array[r][s] = 2;
         print();
     }
 }
+
