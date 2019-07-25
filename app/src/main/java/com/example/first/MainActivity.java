@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     String[][] string_array = new String[3][3];
     int n = 3;
     String N;
+    int score;
 
 
     @Override
@@ -60,11 +61,19 @@ public class MainActivity extends AppCompatActivity {
             for(i = 0;i < n-1;i++) {
                 if(int_array[i][j] == int_array[i+1][j] && int_array[i][j] != 0) {
                     int_array[i][j] += int_array[i+1][j];
+
+                    getScore(i,j);
+
+
                     int_array[i+1][j] = 0;
                 }
                 else if(int_array[i+1][j] == 0){
                     if(i+2 < n && int_array[i][j] == int_array[i+2][j]){
                         int_array[i][j] += int_array[i+2][j];
+
+                        getScore(i,j);
+
+
                         int_array[i+2][j] = 0;
                     }
                 }
@@ -83,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
         print();
         setRandom();
+
     }
 
 
@@ -92,11 +102,19 @@ public class MainActivity extends AppCompatActivity {
             for(i=n-1;i>0;i--) {
                 if(int_array[i][j] == int_array[i-1][j]) {
                     int_array[i][j] += int_array[i-1][j];
+
+                    getScore(i,j);
+
+
                     int_array[i-1][j] = 0;
                 }
                 else if(int_array[i-1][j] == 0){
                     if(i-2>=0 && int_array[i][j] == int_array[i-2][j]){
                         int_array[i][j] += int_array[i-2][j];
+
+                        getScore(i,j);
+
+
                         int_array[i-2][j] = 0;
                     }
                 }
@@ -123,11 +141,19 @@ public class MainActivity extends AppCompatActivity {
             for(j=0;j<n-1;j++) {
                 if(int_array[i][j] == int_array[i][j+1] && int_array[i][j]!=0) {
                     int_array[i][j] += int_array[i][j+1];
+
+                    getScore(i,j);
+
+
                     int_array[i][j+1] = 0;
                 }
                 else if(int_array[i][j+1] == 0){
                     if(j+2<n && int_array[i][j] == int_array[i][j+2]){
                         int_array[i][j] += int_array[i][j+2];
+
+                        getScore(i,j);
+
+
                         int_array[i][j+2] = 0;
                     }
                 }
@@ -154,6 +180,10 @@ public class MainActivity extends AppCompatActivity {
             for(j=n-1;j>0;j--) {
                 if(int_array[i][j] == int_array[i][j-1]) {
                     int_array[i][j] += int_array[i][j-1];
+
+                    getScore(i,j);
+
+
                     int_array[i][j-1] = 0;
                 }
                 else if(int_array[i][j-1] == 0){
@@ -188,5 +218,13 @@ public class MainActivity extends AppCompatActivity {
         int_array[r][s] = 2;
         print();
     }
+    public void getScore(int i,int j){
+        score += int_array[i][j];
+        TextView s = findViewById(R.id.score);
+        String s1 = Integer.toString(score);
+        s.setText(s1);
+    }
+
+
 }
 
