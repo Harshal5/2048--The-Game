@@ -168,24 +168,45 @@ app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="300dp"
-        android:layout_marginEnd="8dp"
-        android:text="Score"
-        app:layout_constraintEnd_toStartOf="@+id/highScore"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="20dp"
+        android:text="0"
+        app:layout_constraintBottom_toTopOf="@+id/highScore"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/highScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="106dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="350dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/scoreTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="20dp"
+        android:text="Score"
+        app:layout_constraintBottom_toTopOf="@+id/highScoreTitle"
+        app:layout_constraintEnd_toStartOf="@+id/score"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/highScoreTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="350dp"
         android:text="HighScore"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/score"
-        tools:layout_editor_absoluteY="300dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/highScore"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
