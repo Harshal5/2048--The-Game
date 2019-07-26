@@ -37,10 +37,9 @@ public class MainActivity extends AppCompatActivity {
                 int_array[i][j] = 0;
             }
         }
-        int_array[0][0] = 2;
-        int_array[0][1] = 0;
-        int_array[0][2] = 0;
-        int_array[1][2] = 2;
+        setRandom();
+        setRandom();
+        setRandom();
 
         print();
     }
@@ -77,10 +76,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         print();
-        if(change) {
-            setRandom();
-            change = false;
-        }
+        enterRandomCheckEmpty();
         getHighScore();
         setHighScore();
         checkGameOver();
@@ -120,13 +116,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         print();
-        if(change) {
-            setRandom();
-            change = false;
-        }
-            getHighScore();
-            setHighScore();
-            checkGameOver();
+        enterRandomCheckEmpty();
+        getHighScore();
+        setHighScore();
+        checkGameOver();
     }
 
 
@@ -162,13 +155,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         print();
-        if (change) {
-            setRandom();
-            change = false;
-        }
-            getHighScore();
-            setHighScore();
-            checkGameOver();
+        enterRandomCheckEmpty();
+        getHighScore();
+        setHighScore();
+        checkGameOver();
     }
 
     public void right(View v) {
@@ -201,17 +191,13 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         print();
-        if(change) {
-            setRandom();
-            change = false;
-        }
+        enterRandomCheckEmpty();
         getHighScore();
         setHighScore();
         checkGameOver();
     }
 
     public void setRandom() {
-        if (!checkEmptyBoxes()) {
             Random x = new Random();
             Random y = new Random();
             int r, s;
@@ -221,7 +207,6 @@ public class MainActivity extends AppCompatActivity {
             } while (int_array[r][s] != 0);
             int_array[r][s] = 2;
             print();
-        }
     }
 
     public void getScore(int i, int j) {
@@ -237,7 +222,6 @@ public class MainActivity extends AppCompatActivity {
         if (score > highScore) {
             highScore = score;
             highScore_save.edit().putInt("highScoreKey", highScore).apply();
-
         }
     }
 
@@ -309,6 +293,14 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+        public void enterRandomCheckEmpty() {
+            if (change && !checkEmptyBoxes()) {
+                setRandom();
+                change = false;
+            }
+        }
+
 
 
 }
