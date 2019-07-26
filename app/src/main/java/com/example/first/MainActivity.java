@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     int score, highScore = 0, n = 3;
     SharedPreferences highScore_save;
     String highScore_display;
-    boolean playContinue , change =false;
+    boolean change =false;
 
 
     @Override
@@ -43,16 +43,6 @@ public class MainActivity extends AppCompatActivity {
         int_array[1][2] = 2;
 
         print();
-    }
-
-    public void print() {
-        int i, j;
-        for (i = 2; i >= 0; i--) {
-            for (j = 0; j < 3; j++) {
-                string_array[i][j] = Integer.toString(int_array[i][j]);
-                textView_array[i][j].setText(string_array[i][j]);
-            }
-        }
     }
 
     public void up(View v) {
@@ -93,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         }
         getHighScore();
         setHighScore();
+        checkGameOver();
 
     }
 
@@ -101,43 +92,41 @@ public class MainActivity extends AppCompatActivity {
         int i, j;
         for (j = n - 1; j >= 0; j--) {
             for (i = n - 1; i > 0; i--) {
-                if (int_array[i][j] == int_array[i - 1][j]) {
+                if (int_array[i][j] == int_array[i - 1][j] && int_array[i-1][j] != 0) {
                     int_array[i][j] += int_array[i - 1][j];
-
                     getScore(i, j);
-
-
                     int_array[i - 1][j] = 0;
+                    change = true;
                 } else if (int_array[i - 1][j] == 0) {
-                    if (i - 2 >= 0 && int_array[i][j] == int_array[i - 2][j]) {
+                    if (i - 2 >= 0 && int_array[i][j] == int_array[i - 2][j] && int_array[i-2][j] != 0) {
                         int_array[i][j] += int_array[i - 2][j];
-
                         getScore(i, j);
-
-
                         int_array[i - 2][j] = 0;
+                        change = true;
                     }
                 }
             }
             for (i = n - 1; i > 0; i--) {
-                if (int_array[i][j] == 0 && int_array[i - 1][j] == 0 && i - 2 >= 0) {
+                if (int_array[i][j] == 0 && int_array[i - 1][j] == 0 && i - 2 >= 0 && int_array[i-1][j] != 0) {
                     int_array[i][j] += int_array[i - 2][j];
                     int_array[i - 2][j] = 0;
-                } else if (int_array[i][j] == 0) {
+                    change = true;
+                } else if (int_array[i][j] == 0 && int_array[i-1][j] != 0) {
                     int_array[i][j] += int_array[i - 1][j];
                     int_array[i - 1][j] = 0;
+                    change = true;
                 }
             }
         }
 
         print();
-        playContinue = checkAdjacentVertical();
         if(change) {
             setRandom();
             change = false;
         }
             getHighScore();
             setHighScore();
+            checkGameOver();
     }
 
 
@@ -145,67 +134,69 @@ public class MainActivity extends AppCompatActivity {
         int i, j;
         for (i = 0; i <= n - 1; i++) {
             for (j = 0; j < n - 1; j++) {
-                if (int_array[i][j] == int_array[i][j + 1] && int_array[i][j] != 0) {
+                if (int_array[i][j] == int_array[i][j + 1] && int_array[i][j] != 0 && int_array[i][j+1] != 0) {
                     int_array[i][j] += int_array[i][j + 1];
                     getScore(i, j);
                     int_array[i][j + 1] = 0;
+                    change = true;
                 } else if (int_array[i][j + 1] == 0) {
-                    if (j + 2 < n && int_array[i][j] == int_array[i][j + 2]) {
+                    if (j + 2 < n && int_array[i][j] == int_array[i][j + 2] && int_array[i][j+2] !=0) {
                         int_array[i][j] += int_array[i][j + 2];
-
                         getScore(i, j);
-
-
                         int_array[i][j + 2] = 0;
+                        change = true;
                     }
                 }
             }
             for (j = 0; j < n - 1; j++) {
-                if (int_array[i][j] == 0 && int_array[i][j + 1] == 0 && j + 2 < n) {
+                if (int_array[i][j] == 0 && int_array[i][j + 1] == 0 && j + 2 < n && int_array[i][j+2] != 0) {
                     int_array[i][j] += int_array[i][j + 2];
                     int_array[i][j + 2] = 0;
-                } else if (int_array[i][j] == 0) {
+                    change = true;
+                } else if (int_array[i][j] == 0 && int_array[i][j+1] != 0) {
                     int_array[i][j] += int_array[i][j + 1];
                     int_array[i][j + 1] = 0;
+                    change = true;
                 }
             }
         }
 
         print();
-        playContinue = checkAdjacentVertical();
         if (change) {
             setRandom();
             change = false;
         }
             getHighScore();
             setHighScore();
+            checkGameOver();
     }
 
     public void right(View v) {
         int i, j;
         for (i = n - 1; i >= 0; i--) {
             for (j = n - 1; j > 0; j--) {
-                if (int_array[i][j] == int_array[i][j - 1]) {
+                if (int_array[i][j] == int_array[i][j - 1] && int_array[i][j-1] != 0) {
                     int_array[i][j] += int_array[i][j - 1];
-
                     getScore(i, j);
-
-
                     int_array[i][j - 1] = 0;
+                    change = true;
                 } else if (int_array[i][j - 1] == 0) {
-                    if (j - 2 >= 0 && int_array[i][j] == int_array[i][j - 2]) {
+                    if (j - 2 >= 0 && int_array[i][j] == int_array[i][j - 2] && int_array[i][j-2] != 0) {
                         int_array[i][j] += int_array[i][j - 2];
                         int_array[i][j - 2] = 0;
+                        change = true;
                     }
                 }
             }
             for (j = n - 1; j > 0; j--) {
-                if (int_array[i][j] == 0 && int_array[i][j - 1] == 0 && j - 2 >= 0) {
+                if (int_array[i][j] == 0 && int_array[i][j - 1] == 0 && j - 2 >= 0 && int_array[i][j-2] != 0) {
                     int_array[i][j] += int_array[i][j - 2];
                     int_array[i][j - 2] = 0;
-                } else if (int_array[i][j] == 0) {
+                    change = true;
+                } else if (int_array[i][j] == 0 && int_array[i][j-1] != 0) {
                     int_array[i][j] += int_array[i][j - 1];
                     int_array[i][j - 1] = 0;
+                    change = true;
                 }
             }
         }
@@ -216,6 +207,7 @@ public class MainActivity extends AppCompatActivity {
         }
         getHighScore();
         setHighScore();
+        checkGameOver();
     }
 
     public void setRandom() {
@@ -239,7 +231,6 @@ public class MainActivity extends AppCompatActivity {
         s.setText(s1);
         setHighScore();
         getHighScore();
-
     }
 
     public void setHighScore() {
@@ -268,53 +259,56 @@ public class MainActivity extends AppCompatActivity {
         textView_array[2][2] = findViewById(R.id.textView9);
     }
 
-    public boolean checkGameOver() {
-        int i, j;
-        boolean gameOver = true;
-
-        if (!checkEmptyBoxes()) {
-            for (i = 0; i < n; i++) {
-                for (j = 0; j < n; j++) {
-                    if (!checkAdjacentVertical()) {
-                        gameOver = false;
-                        Toast.makeText(this, "Game Over", Toast.LENGTH_LONG).show();
-                        return gameOver;
-                    }
-                }
-            }
+    public void checkGameOver() {
+        if (!checkAdjacentVertical() && !checkAdjacentHorizontal() && !checkEmptyBoxes()) {
+            Toast.makeText(this, "Game Over", Toast.LENGTH_LONG).show();
         }
-
-        return gameOver;
     }
 
     public boolean checkAdjacentVertical() {
-        boolean AdjacentMoveVertical = false;
         int i, j;
         for (i = 0; i < n - 1; i++) {
             for (j = 0; j < n; j++) {
                 if (int_array[i][j] == int_array[i + 1][j]) {
-                    AdjacentMoveVertical = true;
-                    return AdjacentMoveVertical;
+                    return true;
                 }
             }
         }
-        return AdjacentMoveVertical;
+        return false;
+    }
+    public boolean checkAdjacentHorizontal() {
+            int i, j;
+            for (i = 0; i < n ; i++) {
+                for (j = 0; j < n - 1; j++) {
+                    if (int_array[i][j] == int_array[i][j + 1]) {
+                        return true;
+                    }
+                }
+            }
+            return false;
     }
 
     public boolean checkEmptyBoxes() {
         int i, j;
-        boolean boxesFilled = true;
         for (i = 0; i < n; i++) {
             for (j = 0; j < n; j++) {
                 if (int_array[i][j] == 0) {
-                    boxesFilled = false;
-                    return boxesFilled;
+                    return false;
                 }
             }
         }
-        return boxesFilled;
+        return true;
     }
 
+    public void print() {
+        int i, j;
+        for (i = 2; i >= 0; i--) {
+            for (j = 0; j < 3; j++) {
+                string_array[i][j] = Integer.toString(int_array[i][j]);
+                textView_array[i][j].setText(string_array[i][j]);
+            }
+        }
+    }
 
 
 }
