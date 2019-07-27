@@ -153,6 +153,8 @@
         android:layout_marginEnd="124dp"
         android:layout_marginBottom="24dp"
         android:text="0"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/highScore"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -164,6 +166,8 @@
         android:layout_marginEnd="132dp"
         android:layout_marginBottom="264dp"
         android:text=""
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -172,13 +176,14 @@
         android:id="@+id/scoreTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="24dp"
         android:text="Score"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/highScoreTitle"
         app:layout_constraintEnd_toStartOf="@+id/score"
-        app:layout_constraintHorizontal_bias="0.301"
         app:layout_constraintStart_toStartOf="parent" />
 
     <!-- Text HighScoreTitle -->
@@ -186,13 +191,14 @@
         android:id="@+id/highScoreTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="50dp"
         android:layout_marginBottom="264dp"
         android:text="HighScore"
+        android:textSize="32sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/highScore"
-        app:layout_constraintHorizontal_bias="0.234"
         app:layout_constraintStart_toStartOf="parent" />
 
 
