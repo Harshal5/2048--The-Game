@@ -1,10 +1,11 @@
 package com.example.first;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.MotionEventCompat;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
+import android.view.MotionEvent;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     SharedPreferences highScore_save;
     String highScore_display;
     boolean change =false;
+    float x1,x2,y1,y2;
 
 
     @Override
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Actions to be performed on clicking up button*/
-    public void up(View v) {
+    public void up() {
         int i, j;
         for (j = 0; j <= n - 1; j++) {
             for (i = 0; i < n - 1; i++) {
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Actions to be performed on clicking down button*/
-    public void down(View v) {
+    public void down() {
         int i, j;
         for (j = n - 1; j >= 0; j--) {
             for (i = n - 1; i > 0; i--) {
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Actions to be performed on clicking left button*/
-    public void left(View v) {
+    public void left() {
         int i, j;
         for (i = 0; i <= n - 1; i++) {
             for (j = 0; j < n - 1; j++) {
@@ -167,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Actions to be performed on clicking right button*/
-    public void right(View v) {
+    public void right() {
         int i, j;
         for (i = n - 1; i >= 0; i--) {
             for (j = n - 1; j > 0; j--) {
@@ -320,7 +322,45 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
+    /* Guestures detection allowed */
+    public boolean onTouchEvent(MotionEvent event) {
+        int action = MotionEventCompat.getActionMasked(event);
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                x1 = event.getX();
+                y1 = event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                x2 = event.getX();
+                y2 = event.getY();
+                if(Math.abs(x2-x1)>Math.abs(y2-y1)) {
+                    //Horizontal
+                    if(x2>x1) {
+                        //Right
+                        right();
+                    } else {
+                        //Left
+                        left();
+                    }
+                } else {
+                    //Vertical
+                    if(y2>y1) {
+                        //down
+                        down();
+                    } else {
+                        //up
+                        up();
+                    }
+                }
+                break;
+        }
+        print();
+        enterRandomCheckEmpty();
+        getHighScore();
+        setHighScore();
+        checkGameOver();
+        return super.onTouchEvent(event);
+    }
 
 }
 
