@@ -12,6 +12,7 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    /* Declarations */
     TextView[][] textView_array = new TextView[3][3];
     int[][] int_array = new int[3][3];
     String[][] string_array = new String[3][3];
@@ -28,22 +29,26 @@ public class MainActivity extends AppCompatActivity {
         int i, j;
         setTextView();
 
+        /* Initializing shared preference*/
         highScore_save = this.getSharedPreferences("HighScoreKey", MODE_PRIVATE);
         highScore = highScore_save.getInt("highScoreKey", 0);
         getHighScore();
 
+        /*Initializing array elements to zero*/
         for (i = 0; i <= 2; i++) {
             for (j = 0; j <= 2; j++) {
                 int_array[i][j] = 0;
             }
         }
-        setRandom();
+
+        /* Randomly setting two tiles to 2 */
         setRandom();
         setRandom();
 
         print();
     }
 
+    /* Actions to be performed on clicking up button*/
     public void up(View v) {
         int i, j;
         for (j = 0; j <= n - 1; j++) {
@@ -83,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /* Actions to be performed on clicking down button*/
     public void down(View v) {
         int i, j;
         for (j = n - 1; j >= 0; j--) {
@@ -122,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
         checkGameOver();
     }
 
-
+    /* Actions to be performed on clicking left button*/
     public void left(View v) {
         int i, j;
         for (i = 0; i <= n - 1; i++) {
@@ -161,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
         checkGameOver();
     }
 
+    /* Actions to be performed on clicking right button*/
     public void right(View v) {
         int i, j;
         for (i = n - 1; i >= 0; i--) {
@@ -197,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
         checkGameOver();
     }
 
+    /* Puts 2 in random empty box */
     public void setRandom() {
             Random x = new Random();
             Random y = new Random();
@@ -209,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
             print();
     }
 
+    /*  Updates Score*/
     public void getScore(int i, int j) {
         score += int_array[i][j];
         TextView s = findViewById(R.id.score);
@@ -218,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
         getHighScore();
     }
 
+    /* If score is greater than highScore set it as highscore and save preference*/
     public void setHighScore() {
         if (score > highScore) {
             highScore = score;
@@ -225,12 +234,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*Display HighScore on Screen*/
     public void getHighScore() {
         highScore_display = Integer.toString(highScore);
         TextView streakCount = findViewById(R.id.highScore);
         streakCount.setText(highScore_display);
     }
 
+    /* Set all the textViews to respective array elements */
     public void setTextView() {
         textView_array[0][0] = findViewById(R.id.textView);
         textView_array[0][1] = findViewById(R.id.textView2);
@@ -243,12 +254,14 @@ public class MainActivity extends AppCompatActivity {
         textView_array[2][2] = findViewById(R.id.textView9);
     }
 
+    /*Checks if there are any possible moves */
     public void checkGameOver() {
-        if (!checkAdjacentVertical() && !checkAdjacentHorizontal() && !checkEmptyBoxes()) {
+        if (!checkAdjacentVertical() && !checkAdjacentHorizontal() && checkfilledBoxes()) {
             Toast.makeText(this, "Game Over", Toast.LENGTH_LONG).show();
         }
     }
 
+    /* Checks for possible Vertical moves */
     public boolean checkAdjacentVertical() {
         int i, j;
         for (i = 0; i < n - 1; i++) {
@@ -260,6 +273,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    /* Checks for possible Horizontal moves */
     public boolean checkAdjacentHorizontal() {
             int i, j;
             for (i = 0; i < n ; i++) {
@@ -272,18 +287,20 @@ public class MainActivity extends AppCompatActivity {
             return false;
     }
 
-    public boolean checkEmptyBoxes() {
+    /* return true if any block is 0 */
+    public boolean checkfilledBoxes() {
         int i, j;
         for (i = 0; i < n; i++) {
             for (j = 0; j < n; j++) {
                 if (int_array[i][j] == 0) {
-                    return false;
+                    return true;
                 }
             }
         }
-        return true;
+        return false;
     }
 
+    /* Prints all values to textView */
     public void print() {
         int i, j;
         for (i = 2; i >= 0; i--) {
@@ -294,8 +311,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-        public void enterRandomCheckEmpty() {
-            if (change && !checkEmptyBoxes()) {
+    /* If tiles position is changed and there exists an empty block then calls random function*/
+    public void enterRandomCheckEmpty() {
+            if (change && checkfilledBoxes()) {
                 setRandom();
                 change = false;
             }
