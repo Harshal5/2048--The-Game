@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             for (i = 0; i < n - 1; i++) {
-                if (int_array[i][j] == 0 && int_array[i + 1][j] == 0 && i + 2 < n && int_array[i][j] != 0) {
+                if (int_array[i][j] == 0 && int_array[i + 1][j] == 0 && i + 2 < n && int_array[i + 2][j] != 0) {
                     int_array[i][j] += int_array[i + 2][j];
                     int_array[i + 2][j] = 0;
                     change = true;
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
             for (i = n - 1; i > 0; i--) {
-                if (int_array[i][j] == 0 && int_array[i - 1][j] == 0 && i - 2 >= 0 && int_array[i-1][j] != 0) {
+                if (int_array[i][j] == 0 && int_array[i - 1][j] == 0 && i - 2 >= 0 && int_array[i-2][j] != 0) {
                     int_array[i][j] += int_array[i - 2][j];
                     int_array[i - 2][j] = 0;
                     change = true;
@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
         getHighScore();
     }
 
-    /* If score is greater than highScore set it as highscore and save preference*/
+    /* If score is greater than highScore set it as HigScore and save preference*/
     public void setHighScore() {
         if (score > highScore) {
             highScore = score;
@@ -256,7 +256,8 @@ public class MainActivity extends AppCompatActivity {
 
     /*Checks if there are any possible moves */
     public void checkGameOver() {
-        if (!checkAdjacentVertical() && !checkAdjacentHorizontal() && checkfilledBoxes()) {
+        if (!checkAdjacentVertical() && !checkAdjacentHorizontal() &&
+                !checkEmptyBoxes()) {
             Toast.makeText(this, "Game Over", Toast.LENGTH_LONG).show();
         }
     }
@@ -288,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* return true if any block is 0 */
-    public boolean checkfilledBoxes() {
+    public boolean checkEmptyBoxes() {
         int i, j;
         for (i = 0; i < n; i++) {
             for (j = 0; j < n; j++) {
@@ -313,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
 
     /* If tiles position is changed and there exists an empty block then calls random function*/
     public void enterRandomCheckEmpty() {
-            if (change && checkfilledBoxes()) {
+            if (change && checkEmptyBoxes()) {
                 setRandom();
                 change = false;
             }
