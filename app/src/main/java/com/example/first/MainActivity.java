@@ -1,8 +1,11 @@
 package com.example.first;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MotionEventCompat;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -261,6 +264,8 @@ public class MainActivity extends AppCompatActivity {
         if (!checkAdjacentVertical() && !checkAdjacentHorizontal() &&
                 !checkEmptyBoxes()) {
             Toast.makeText(this, "Game Over", Toast.LENGTH_LONG).show();
+
+            showDialogBox();
         }
     }
 
@@ -361,6 +366,27 @@ public class MainActivity extends AppCompatActivity {
         checkGameOver();
         return super.onTouchEvent(event);
     }
+
+    public void showDialogBox(){
+        new AlertDialog.Builder(this)
+                .setTitle("Game Over")
+                .setPositiveButton("Restart ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(MainActivity.this, MainActivity.class));
+                        finish();
+                    }
+                })
+                .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+
+                })
+                .show();
+    }
+
 
 }
 
