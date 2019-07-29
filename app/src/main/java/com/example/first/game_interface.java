@@ -11,7 +11,6 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
 
@@ -24,7 +23,7 @@ public class game_interface extends AppCompatActivity {
     SharedPreferences highScore_save;
     String highScore_display;
     String[][] string_array = new String[n][n];
-    boolean change =false;
+    boolean change =false , win = false;
     boolean[][] mergeChecker = new boolean[n][n];
     float x1,x2,y1,y2;
     MediaPlayer mediaPlayer;
@@ -61,8 +60,20 @@ public class game_interface extends AppCompatActivity {
         /* Randomly setting two tiles to 2 */
         setRandom();
         setRandom();
-
         print();
+        colorChanger();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mediaPlayer.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mediaPlayer.start();
     }
 
     /* Actions to be performed on clicking up button*/
@@ -92,8 +103,7 @@ public class game_interface extends AppCompatActivity {
         getHighScore();
         setHighScore();
         checkGameOver();
-
-
+        colorChanger();
     }
 
     /* Actions to be performed on clicking down button*/
@@ -123,6 +133,7 @@ public class game_interface extends AppCompatActivity {
         getHighScore();
         setHighScore();
         checkGameOver();
+        colorChanger();
     }
 
     /* Actions to be performed on clicking left button*/
@@ -151,6 +162,7 @@ public class game_interface extends AppCompatActivity {
         getHighScore();
         setHighScore();
         checkGameOver();
+        colorChanger();
     }
 
     /* Actions to be performed on clicking right button*/
@@ -180,6 +192,7 @@ public class game_interface extends AppCompatActivity {
         getHighScore();
         setHighScore();
         checkGameOver();
+        colorChanger();
     }
 
     /* Puts 2 in random empty box */
@@ -254,9 +267,7 @@ public class game_interface extends AppCompatActivity {
     public void checkGameOver() {
         if (!checkAdjacentVertical() && !checkAdjacentHorizontal() &&
                 !checkEmptyBoxes()) {
-            Toast.makeText(this, "Game Over", Toast.LENGTH_LONG).show();
-
-            showDialogBox();
+                showDialogBox();
         }
     }
 
@@ -395,10 +406,67 @@ public class game_interface extends AppCompatActivity {
         }
     }
 
+    /* Change Tile color on different values*/
+    public void colorChanger() {
+        int i, j;
+        for (i = 0; i < n ; i++) {
+            for (j = 0; j < n ; j++) {
+                if(int_array[i][j] == 0){
+                    textView_array[i][j].setBackgroundResource(R.color.tile0);
+                }
+                else if (int_array[i][j] == 2) {
+                    textView_array[i][j].setBackgroundResource(R.color.tile2);
+                }
+                else if(int_array[i][j] == 4){
+                    textView_array[i][j].setBackgroundResource(R.color.tile4);
+                }
+                else if(int_array[i][j] == 8){
+                    textView_array[i][j].setBackgroundResource(R.color.tile8);
+                }
+                else if (int_array[i][j] == 16){
+                    textView_array[i][j].setBackgroundResource(R.color.tile16);
+                }
+                else if (int_array[i][j] == 32){
+                    textView_array[i][j].setBackgroundResource(R.color.tile32);
+                }
+                else if (int_array[i][j] == 64){
+                    textView_array[i][j].setBackgroundResource(R.color.tile64);
+                }
+                else if (int_array[i][j] == 128){
+                    textView_array[i][j].setBackgroundResource(R.color.tile128);
+                }
+                else if (int_array[i][j] == 256){
+                    textView_array[i][j].setBackgroundResource(R.color.tile256);
+                }
+                else if (int_array[i][j] == 512){
+                    textView_array[i][j].setBackgroundResource(R.color.tile512);
+                }
+                else if (int_array[i][j] == 1024){
+                    textView_array[i][j].setBackgroundResource(R.color.tile1024);
+                }
+                else if (int_array[i][j] == 2048){
+                    textView_array[i][j].setBackgroundResource(R.color.tile2048);
+                    if(!win){
+                        new AlertDialog.Builder(this)
+                                .setMessage("You Win")
+                                .setCancelable(true)
+                                .show();
+                    }
+                    win = true;
+
+                }
+                else {
+                    textView_array[i][j].setBackgroundResource(R.color.green);
+                }
+            }
+        }
+    }
+
     /* Return to home page on clicking back*/
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+
         startActivity(new Intent(this , MainActivity.class));
         game_interface.this.finish();
     }
