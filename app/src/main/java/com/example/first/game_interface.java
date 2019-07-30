@@ -19,11 +19,13 @@ public class game_interface extends AppCompatActivity {
     /* Declarations */
     int score, highScore = 0, n = 4;//Permissible values of n are 3 and 4 for more textViews need to be changed
     TextView[][] textView_array = new TextView[n][n];
-    int[][] int_array = new int[n][n];
+    int[][] int_array = new int[n][n] ;
+    int[][] saveData = new int[n][n];
     SharedPreferences highScore_save;
+    SharedPreferences[][] saveData_pref = new SharedPreferences[n][n];
     String highScore_display;
     String[][] string_array = new String[n][n];
-    boolean change =false , win = false;
+    boolean change =false , win = false , saved = false;
     boolean[][] mergeChecker = new boolean[n][n];
     float x1,x2,y1,y2;
     MediaPlayer mediaPlayer;
@@ -49,17 +51,27 @@ public class game_interface extends AppCompatActivity {
         highScore_save = this.getSharedPreferences("HighScoreKey", MODE_PRIVATE);
         highScore = highScore_save.getInt("highScoreKey", 0);
         getHighScore();
-
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n; j++) {
+                saveData_pref[i][j] = this.getSharedPreferences("SaveData", MODE_PRIVATE);
+            }
+        }
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n; j++) {
+                int_array[i][j] = saveData_pref[i][j].getInt("saveData", 0);
+            }
+        }
+        if(!saved) {
         /*Initializing array elements to zero*/
-        for (i = 0; i <= 2; i++) {
-            for (j = 0; j <= 2; j++) {
+        for (i = 0; i < n; i++) {
+            for (j = 0; j < n; j++) {
                 int_array[i][j] = 0;
             }
         }
-
         /* Randomly setting two tiles to 2 */
-        setRandom();
-        setRandom();
+            setRandom();
+            setRandom();
+        }
         print();
         colorChanger();
     }
@@ -466,9 +478,19 @@ public class game_interface extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
+        saveData();
         startActivity(new Intent(this , MainActivity.class));
         game_interface.this.finish();
     }
 
+    public void saveData(){
+        int i, j;
+        for (i = 0 ;i < n ;i++){
+            for(j = 0 ;j < n ;j++){
+                saveData[i][j] = int_array[i][j];
+                saveData_pref[i][j].edit().putInt("saveData", saveData[i][j]).apply();
+            }
+        }
+        saved = true;
+    }
 }
