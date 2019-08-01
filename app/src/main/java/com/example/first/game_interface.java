@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -20,16 +21,14 @@ public class game_interface extends AppCompatActivity {
     int score, highScore = 0, n = 4;//Permissible values of n are 3 and 4 for more textViews need to be changed
     TextView[][] textView_array = new TextView[n][n];
     int[][] int_array = new int[n][n] ;
-    int[][] saveData = new int[n][n];
-    SharedPreferences highScore_save;
-    SharedPreferences[][] saveData_pref = new SharedPreferences[n][n];
+    SharedPreferences highScore_save , saveState;
     String highScore_display;
     String[][] string_array = new String[n][n];
-    boolean change =false , win = false , saved = false;
+    boolean change =false , win = false ;
     boolean[][] mergeChecker = new boolean[n][n];
     float x1,x2,y1,y2;
     MediaPlayer mediaPlayer;
-
+    SharedPreferences.Editor saver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +41,7 @@ public class game_interface extends AppCompatActivity {
         mediaPlayer.start();
 
 
+
         int i, j;
 
         /* Sets all textViews */
@@ -51,27 +51,11 @@ public class game_interface extends AppCompatActivity {
         highScore_save = this.getSharedPreferences("HighScoreKey", MODE_PRIVATE);
         highScore = highScore_save.getInt("highScoreKey", 0);
         getHighScore();
-        for (i = 0; i < n; i++) {
-            for (j = 0; j < n; j++) {
-                saveData_pref[i][j] = this.getSharedPreferences("SaveData", MODE_PRIVATE);
-            }
-        }
-        for (i = 0; i < n; i++) {
-            for (j = 0; j < n; j++) {
-                int_array[i][j] = saveData_pref[i][j].getInt("saveData", 0);
-            }
-        }
-        if(!saved) {
-        /*Initializing array elements to zero*/
-        for (i = 0; i < n; i++) {
-            for (j = 0; j < n; j++) {
-                int_array[i][j] = 0;
-            }
-        }
-        /* Randomly setting two tiles to 2 */
-            setRandom();
-            setRandom();
-        }
+
+        saveState = this.getSharedPreferences("save_state_pref", MODE_PRIVATE);
+        saver = saveState.edit();
+
+        loadGameState();
         print();
         colorChanger();
     }
@@ -393,6 +377,7 @@ public class game_interface extends AppCompatActivity {
                 .setPositiveButton("Restart ", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        saver.putBoolean("savedLastTime", false).commit();
                         startActivity(new Intent(game_interface.this, game_interface.class));
                         finish();
                     }
@@ -478,19 +463,39 @@ public class game_interface extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        saveData();
+        saveGameState();
         startActivity(new Intent(this , MainActivity.class));
         game_interface.this.finish();
     }
 
-    public void saveData(){
-        int i, j;
-        for (i = 0 ;i < n ;i++){
-            for(j = 0 ;j < n ;j++){
-                saveData[i][j] = int_array[i][j];
-                saveData_pref[i][j].edit().putInt("saveData", saveData[i][j]).apply();
+    void saveGameState() {
+        int i,j;
+        for(i = 0; i < n; i++) {
+            for(j = 0 ;j < n; j++) {
+                String key = (Integer.toString(i) + Integer.toString(j));
+                saver.putInt(key, int_array[i][j]).commit();
             }
         }
-        saved = true;
+        saver.putBoolean("savedLastTime", true).commit();
+    }
+    void loadGameState() {
+        int i,j;
+        if(saveState.getBoolean("savedLastTime", false)) {
+            for (i = 0; i < n; i++) {
+                for (j = 0; j < n; j++) {
+                    String key = (Integer.toString(i) + Integer.toString(j));
+                    int_array[i][j] = saveState.getInt(key, -1);
+                }
+            }
+        } else {
+            setRandom();
+            setRandom();
+        }
+        print();
+    }
+    public void onRestart(View view){
+        saver.putBoolean("savedLastTime", false).commit();
+        startActivity(new Intent(game_interface.this, game_interface.class));
+        finish();
     }
 }

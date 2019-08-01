@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -18,6 +17,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/restart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onRestart"
+                android:text="Restart"
+                android:textAlignment="center" />
+        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -246,31 +257,31 @@
             android:orientation="horizontal"
             android:textAlignment="center">
 
-        <!-- Text ScoreTitle -->
-        <TextView
-            android:id="@+id/scoreTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginBottom="28dp"
-            android:text="Score : "
-            android:textSize="32sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/highScoreTitle"
-            app:layout_constraintStart_toStartOf="parent" />
+            <!-- Text ScoreTitle -->
+            <TextView
+                android:id="@+id/scoreTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="28dp"
+                android:text="Score : "
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/highScoreTitle"
+                app:layout_constraintStart_toStartOf="parent" />
 
-        <!-- Text Score -->
-        <TextView
-            android:id="@+id/score"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="100dp"
-            android:layout_marginBottom="20dp"
-            android:text="0"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/highScore"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <!-- Text Score -->
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="100dp"
+                android:layout_marginBottom="20dp"
+                android:text="0"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/highScore"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </LinearLayout>
 
@@ -278,18 +289,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-        <!-- Text HighScoreTitle -->
-        <TextView
-            android:id="@+id/highScoreTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginBottom="176dp"
-            android:text="HighScore : "
-            android:textSize="32sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <!-- Text HighScoreTitle -->
+            <TextView
+                android:id="@+id/highScoreTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="25dp"
+                android:layout_marginBottom="176dp"
+                android:text="HighScore : "
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <!-- Text HighScore -->
             <TextView
