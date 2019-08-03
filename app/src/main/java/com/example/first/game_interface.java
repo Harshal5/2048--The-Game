@@ -24,7 +24,7 @@ public class game_interface extends AppCompatActivity {
     SharedPreferences highScore_save , saveState , score_save;
     String highScore_display;
     String[][] string_array = new String[n][n];
-    boolean change =false , win = false ;
+    boolean change =false , win = false , mediaPlayerRunning = false;
     boolean[][] mergeChecker = new boolean[n][n];
     float x1,x2,y1,y2;
     MediaPlayer mediaPlayer;
@@ -39,6 +39,8 @@ public class game_interface extends AppCompatActivity {
         mediaPlayer = MediaPlayer.create(this, R.raw.summer);
         mediaPlayer.setLooping(true);
         mediaPlayer.start();
+        mediaPlayerRunning = true;
+
 
 
 
@@ -69,12 +71,14 @@ public class game_interface extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         mediaPlayer.pause();
+        mediaPlayerRunning = false;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         mediaPlayer.start();
+        mediaPlayerRunning = true;
     }
 
     /* Actions to be performed on clicking up button*/
@@ -99,10 +103,7 @@ public class game_interface extends AppCompatActivity {
         }
 
         setMergeChecker();
-        print();
         enterRandomCheckEmpty();
-        getHighScore();
-        setHighScore();
         checkGameOver();
         colorChanger();
     }
@@ -129,10 +130,7 @@ public class game_interface extends AppCompatActivity {
             }
         }
         setMergeChecker();
-        print();
         enterRandomCheckEmpty();
-        getHighScore();
-        setHighScore();
         checkGameOver();
         colorChanger();
     }
@@ -158,10 +156,7 @@ public class game_interface extends AppCompatActivity {
             }
         }
         setMergeChecker();
-        print();
         enterRandomCheckEmpty();
-        getHighScore();
-        setHighScore();
         checkGameOver();
         colorChanger();
     }
@@ -188,10 +183,7 @@ public class game_interface extends AppCompatActivity {
         }
 
         setMergeChecker();
-        print();
         enterRandomCheckEmpty();
-        getHighScore();
-        setHighScore();
         checkGameOver();
         colorChanger();
     }
@@ -464,7 +456,7 @@ public class game_interface extends AppCompatActivity {
         }
     }
 
-    /* Return to home page on clicking back*/
+    /* Return to home page and save data on clicking back*/
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -473,6 +465,7 @@ public class game_interface extends AppCompatActivity {
         game_interface.this.finish();
     }
 
+    /* Save game State */
     void saveGameState() {
         int i,j;
         for(i = 0; i < n; i++) {
@@ -484,6 +477,8 @@ public class game_interface extends AppCompatActivity {
         saver.putBoolean("savedLastTime", true).commit();
         score_save.edit().putInt("scoreKey", score).apply();
     }
+
+    /* Load game State */
     void loadGameState() {
         int i,j;
         if(saveState.getBoolean("savedLastTime", false)) {
@@ -502,6 +497,8 @@ public class game_interface extends AppCompatActivity {
         s.setText(Integer.toString(score));
         print();
     }
+
+    /* Restart button */
     public void onRestart(View view){
         saver.putBoolean("savedLastTime", false).commit();
         /*Set score to zero on restart */
@@ -511,5 +508,16 @@ public class game_interface extends AppCompatActivity {
         /* Restart activity */
         startActivity(new Intent(game_interface.this, game_interface.class));
         finish();
+    }
+
+    public void musicToggle(View music){
+        if(mediaPlayerRunning) {
+            mediaPlayer.pause();
+            mediaPlayerRunning = false;
+        }
+        else {
+            mediaPlayer.start();
+            mediaPlayerRunning = true;
+        }
     }
 }
