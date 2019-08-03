@@ -21,7 +21,7 @@ public class game_interface extends AppCompatActivity {
     int score, highScore = 0, n = 4;//Permissible values of n are 3 and 4 for more textViews need to be changed
     TextView[][] textView_array = new TextView[n][n];
     int[][] int_array = new int[n][n] ;
-    SharedPreferences highScore_save , saveState;
+    SharedPreferences highScore_save , saveState , score_save;
     String highScore_display;
     String[][] string_array = new String[n][n];
     boolean change =false , win = false ;
@@ -47,11 +47,16 @@ public class game_interface extends AppCompatActivity {
         /* Sets all textViews */
         setTextView();
 
-        /* Initializing shared preference*/
+        /* Initializing shared preference for highScore*/
         highScore_save = this.getSharedPreferences("HighScoreKey", MODE_PRIVATE);
         highScore = highScore_save.getInt("highScoreKey", 0);
         getHighScore();
 
+        /* Initializing shared preferences for score*/
+        score_save = this.getSharedPreferences("ScoreKey", MODE_PRIVATE);
+        score = score_save.getInt("scoreKey", 0);
+
+        /* Initializing shared preferences for saving game state*/
         saveState = this.getSharedPreferences("save_state_pref", MODE_PRIVATE);
         saver = saveState.edit();
 
@@ -477,6 +482,7 @@ public class game_interface extends AppCompatActivity {
             }
         }
         saver.putBoolean("savedLastTime", true).commit();
+        score_save.edit().putInt("scoreKey", score).apply();
     }
     void loadGameState() {
         int i,j;
@@ -484,17 +490,25 @@ public class game_interface extends AppCompatActivity {
             for (i = 0; i < n; i++) {
                 for (j = 0; j < n; j++) {
                     String key = (Integer.toString(i) + Integer.toString(j));
-                    int_array[i][j] = saveState.getInt(key, -1);
+                    int_array[i][j] = saveState.getInt(key, 0);
                 }
             }
         } else {
             setRandom();
             setRandom();
         }
+        score = score_save.getInt("scoreKey", 0);
+        TextView s = findViewById(R.id.score);
+        s.setText(Integer.toString(score));
         print();
     }
     public void onRestart(View view){
         saver.putBoolean("savedLastTime", false).commit();
+        /*Set score to zero on restart */
+        score_save.edit().putInt("scoreKey", 0).apply();
+        TextView s = findViewById(R.id.score);
+        s.setText(Integer.toString(0));
+        /* Restart activity */
         startActivity(new Intent(game_interface.this, game_interface.class));
         finish();
     }
