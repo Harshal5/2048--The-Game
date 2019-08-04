@@ -71,14 +71,14 @@ public class game_interface extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         mediaPlayer.pause();
-        mediaPlayerRunning = false;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mediaPlayer.start();
-        mediaPlayerRunning = true;
+        if (mediaPlayerRunning) {
+            mediaPlayer.start();
+        }
     }
 
     /* Actions to be performed on clicking up button*/
