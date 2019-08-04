@@ -1,48 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/restart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onRestart"
+            android:text="Restart"
+            android:textAlignment="center"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="musicToggle"
+            android:text="Music toggle"
+            android:textAlignment="center" />
+    </LinearLayout>
+</LinearLayout>
+
+
+    <RelativeLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_centerInParent="true">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:id="@+id/restart"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="onRestart"
-                android:text="Restart"
-                android:textAlignment="center" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="musicToggle"
-                android:text="Music toggle"
-                android:textAlignment="center" />
-        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/r1">
 
             <TextView
                 android:id="@+id/textView00"
@@ -101,7 +108,9 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/r2"
+            android:layout_below="@+id/r1">
 
             <TextView
                 android:id="@+id/textView10"
@@ -156,7 +165,9 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/r3"
+            android:layout_below="@+id/r2">
 
             <TextView
                 android:id="@+id/textView20"
@@ -210,7 +221,9 @@
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/r4"
+            android:layout_below="@+id/r3">
 
             <TextView
                 android:id="@+id/textView30"
@@ -262,74 +275,58 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView23" />
         </LinearLayout>
 
-        <LinearLayout
+
+        <!-- Text ScoreTitle -->
+        <TextView
+            android:id="@+id/scoreTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:textAlignment="center">
-
-            <!-- Text ScoreTitle -->
-            <TextView
-                android:id="@+id/scoreTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginBottom="28dp"
-                android:text="Score : "
-                android:textSize="32sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/highScoreTitle"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <!-- Text Score -->
-            <TextView
-                android:id="@+id/score"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="100dp"
-                android:layout_marginBottom="20dp"
-                android:text="0"
-                android:textSize="32sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/highScore"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </LinearLayout>
-
-        <LinearLayout
+            android:layout_alignLeft="@+id/r4"
+            android:text="Score         : "
+            android:textSize="32sp"
+            android:textColor="#000"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:layout_below="@+id/r4"/>
+        <!-- Text Score -->
+        <TextView
+            android:id="@+id/score"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <!-- Text HighScoreTitle -->
-            <TextView
-                android:id="@+id/highScoreTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginBottom="176dp"
-                android:text="HighScore : "
-                android:textSize="32sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <!-- Text HighScore -->
-            <TextView
-                android:id="@+id/highScore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="100dp"
-                android:layout_marginBottom="176dp"
-                android:text=""
-                android:textSize="32sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="#000"
+            android:layout_marginTop="20dp"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/r4"
+            android:layout_toRightOf="@+id/scoreTitle"/>
 
 
-    </LinearLayout>
+        <!-- Text HighScoreTitle -->
+        <TextView
+            android:id="@+id/highScoreTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HighScore : "
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:layout_below="@+id/scoreTitle"/>
+
+        <!-- Text HighScore -->
+        <TextView
+            android:id="@+id/highScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/highScoreTitle"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/scoreTitle"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>
