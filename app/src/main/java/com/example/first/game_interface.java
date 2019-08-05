@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
@@ -21,10 +22,12 @@ public class game_interface extends AppCompatActivity {
     int score, highScore = 0, n = 4;//Permissible values of n are 3 and 4 for more textViews need to be changed
     TextView[][] textView_array = new TextView[n][n];
     int[][] int_array = new int[n][n] ;
+    int[][] temp_save_int_array = new int[n][n];
+    int[][] undo_int_array = new int[n][n];
     SharedPreferences highScore_save , saveState , score_save;
     String highScore_display;
     String[][] string_array = new String[n][n];
-    boolean change =false , win = false , mediaPlayerRunning = false;
+    boolean change =false , win = false , mediaPlayerRunning = false , restart = false , undo = false;
     boolean[][] mergeChecker = new boolean[n][n];
     float x1,x2,y1,y2;
     MediaPlayer mediaPlayer;
@@ -38,13 +41,11 @@ public class game_interface extends AppCompatActivity {
         /* Adds Music to game */
         mediaPlayer = MediaPlayer.create(this, R.raw.summer);
         mediaPlayer.setLooping(true);
-        mediaPlayer.start();
-        mediaPlayerRunning = true;
-
-
-
-
-        int i, j;
+        if(!restart) {
+            mediaPlayer.start();
+            mediaPlayerRunning = true;
+            restart = false;
+        }
 
         /* Sets all textViews */
         setTextView();
@@ -65,6 +66,8 @@ public class game_interface extends AppCompatActivity {
         loadGameState();
         print();
         colorChanger();
+        temp_int_array();
+        setUndo_int_array();
     }
 
     @Override
@@ -83,6 +86,7 @@ public class game_interface extends AppCompatActivity {
 
     /* Actions to be performed on clicking up button*/
     public void up() {
+        temp_int_array();
         int i, j , k;
         for (j = 0; j <= n - 1; j++) {
             for (i = 0; i < n - 1; i++) {
@@ -101,7 +105,10 @@ public class game_interface extends AppCompatActivity {
                 }
             }
         }
-
+        if(change){
+            setUndo_int_array();
+            undo = false;
+        }
         setMergeChecker();
         enterRandomCheckEmpty();
         checkGameOver();
@@ -110,7 +117,7 @@ public class game_interface extends AppCompatActivity {
 
     /* Actions to be performed on clicking down button*/
     public void down() {
-
+        temp_int_array();
         int i, j , k;
         for (j = 0; j <= n - 1; j++) {
             for (i = 0; i < n - 1; i++) {
@@ -129,6 +136,10 @@ public class game_interface extends AppCompatActivity {
                 }
             }
         }
+        if(change){
+            setUndo_int_array();
+            undo = false;
+        }
         setMergeChecker();
         enterRandomCheckEmpty();
         checkGameOver();
@@ -137,6 +148,7 @@ public class game_interface extends AppCompatActivity {
 
     /* Actions to be performed on clicking left button*/
     public void left() {
+        temp_int_array();
         int i, j ,k;
         for (i = 0; i <= n - 1; i++) {
             for (j = 0; j < n - 1; j++) {
@@ -155,6 +167,10 @@ public class game_interface extends AppCompatActivity {
                 }
             }
         }
+        if(change){
+            setUndo_int_array();
+            undo = false;
+        }
         setMergeChecker();
         enterRandomCheckEmpty();
         checkGameOver();
@@ -163,6 +179,7 @@ public class game_interface extends AppCompatActivity {
 
     /* Actions to be performed on clicking right button*/
     public void right() {
+        temp_int_array();
         int i, j ,k;
         for (i = n - 1; i >= 0; i--) {
             for (j = n - 1; j > 0; j--) {
@@ -181,7 +198,10 @@ public class game_interface extends AppCompatActivity {
                 }
             }
         }
-
+        if(change){
+            setUndo_int_array();
+            undo = false;
+        }
         setMergeChecker();
         enterRandomCheckEmpty();
         checkGameOver();
@@ -321,7 +341,7 @@ public class game_interface extends AppCompatActivity {
 
     /* If tiles position is changed and there exists an empty block then calls random function*/
     public void enterRandomCheckEmpty() {
-            if (change && checkEmptyBoxes()) {
+            if (change && checkEmptyBoxes() && !undo) {
                 setRandom();
                 change = false;
             }
@@ -505,6 +525,7 @@ public class game_interface extends AppCompatActivity {
         score_save.edit().putInt("scoreKey", 0).apply();
         TextView s = findViewById(R.id.score);
         s.setText(Integer.toString(0));
+        restart = true;
         /* Restart activity */
         startActivity(new Intent(game_interface.this, game_interface.class));
         finish();
@@ -518,6 +539,36 @@ public class game_interface extends AppCompatActivity {
         else {
             mediaPlayer.start();
             mediaPlayerRunning = true;
+        }
+    }
+
+    public void temp_int_array(){
+        for(int i=0; i < n; i++){
+            for(int j=0; j < n; j++){
+                temp_save_int_array[i][j] = int_array[i][j];
+            }
+        }
+    }
+    public void setUndo_int_array(){
+        for(int i=0; i < n; i++){
+            for(int j=0; j < n; j++){
+                undo_int_array[i][j] = temp_save_int_array[i][j];
+            }
+        }
+    }
+    public void undo(View view){
+        if(!undo){
+        for(int i=0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                int_array[i][j] = undo_int_array[i][j];
+                print();
+                colorChanger();
+                undo = true;
+            }
+            }
+        }
+        else {
+            Toast.makeText(this,"Already Undo", Toast.LENGTH_LONG).show();
         }
     }
 }
