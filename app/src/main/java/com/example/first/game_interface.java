@@ -531,6 +531,7 @@ public class game_interface extends AppCompatActivity {
         finish();
     }
 
+    /* Toggles between music on and off */
     public void musicToggle(View music){
         if(mediaPlayerRunning) {
             mediaPlayer.pause();
@@ -542,6 +543,7 @@ public class game_interface extends AppCompatActivity {
         }
     }
 
+    /* Temporary array to store int array before checking undo */
     public void temp_int_array(){
         for(int i=0; i < n; i++){
             for(int j=0; j < n; j++){
@@ -549,6 +551,8 @@ public class game_interface extends AppCompatActivity {
             }
         }
     }
+
+    /* Setting array for undo 1 time*/
     public void setUndo_int_array(){
         for(int i=0; i < n; i++){
             for(int j=0; j < n; j++){
@@ -556,6 +560,8 @@ public class game_interface extends AppCompatActivity {
             }
         }
     }
+
+    /* Return to previous move in game */
     public void undo(View view){
         if(!undo){
         for(int i=0; i < n; i++) {

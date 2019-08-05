@@ -26,8 +26,10 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    /* Shows text msg*/
+    /* Opens up how to play */
     public void howToPlay(View howToPlay){
-        Toast.makeText(this,"Try Yourself Lazy Brat" , Toast.LENGTH_LONG).show();
+        Intent view = new Intent(this,HowToPlay.class);
+        startActivity(view);
+        MainActivity.this.finish();
     }
 }
