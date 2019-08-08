@@ -3,4 +3,19 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="orange">#FFC107</color>
+    <color name="grey">#FF0000</color>
+    <color name="green">#00FF00</color>
+    <color name="tile0">#bbbbbb</color>
+    <color name="tile2">#ffff4d</color>
+    <color name="tile4">#ffbf00</color>
+    <color name="tile8">#ff8000</color>
+    <color name="tile16">#ff4000</color>
+    <color name="tile32">#ff0000</color>
+    <color name="tile64">#00ff4d</color>
+    <color name="tile128">#00bf00</color>
+    <color name="tile256">#008000</color>
+    <color name="tile512">#0040ff</color>
+    <color name="tile1024">#0000ff</color>
+    <color name="tile2048">#804dff</color>
 </resources>

@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/restart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onRestart"
+            android:text="Restart"
+            android:textAlignment="center"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="musicToggle"
+            android:text="Music toggle"
+            android:textAlignment="center" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="undo"
+            android:text="Undo"
+            android:textAlignment="center" />
+    </LinearLayout>
+</LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/r1">
+
+            <TextView
+                android:id="@+id/textView00"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView01"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView00"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView02"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView01"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView03"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:layout_marginTop="50dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView02"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/r2"
+            android:layout_below="@+id/r1">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:layout_marginStart="50dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView00" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView10"
+                app:layout_constraintTop_toBottomOf="@+id/textView01" />
+
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView11"
+                app:layout_constraintTop_toBottomOf="@+id/textView02" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView12"
+                app:layout_constraintTop_toBottomOf="@+id/textView03" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/r3"
+            android:layout_below="@+id/r2">
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:layout_marginStart="50dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView20"
+                app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView21"
+                app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView22"
+                app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/r4"
+            android:layout_below="@+id/r3">
+
+            <TextView
+                android:id="@+id/textView30"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:layout_marginStart="50dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+            <TextView
+                android:id="@+id/textView31"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView30"
+                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+            <TextView
+                android:id="@+id/textView32"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView31"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <TextView
+                android:id="@+id/textView33"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_margin="1dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textView32"
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+        </LinearLayout>
+
+
+        <!-- Text ScoreTitle -->
+        <TextView
+            android:id="@+id/scoreTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/r4"
+            android:text="Score         : "
+            android:textSize="32sp"
+            android:textColor="#000"
+            android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:layout_below="@+id/r4"/>
+        <!-- Text Score -->
+        <TextView
+            android:id="@+id/score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="#000"
+            android:layout_marginTop="20dp"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/r4"
+            android:layout_toRightOf="@+id/scoreTitle"/>
+
+
+        <!-- Text HighScoreTitle -->
+        <TextView
+            android:id="@+id/highScoreTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HighScore : "
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:layout_below="@+id/scoreTitle"/>
+
+        <!-- Text HighScore -->
+        <TextView
+            android:id="@+id/highScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/highScoreTitle"
+            android:text=""
+            android:textColor="#000"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/scoreTitle"/>
+
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
