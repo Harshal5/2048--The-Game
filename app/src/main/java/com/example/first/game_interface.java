@@ -14,9 +14,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.doubleclick.PublisherAdRequest;
+import com.google.android.gms.ads.doubleclick.PublisherAdView;
+
+import java.security.BasicPermission;
+import java.security.Permission;
 import java.util.Random;
 
 public class game_interface extends AppCompatActivity {
+    private PublisherAdView mPublisherAdView;
 
     /* Declarations */
     int score, highScore = 0, n = 4;//Permissible values of n are 3 and 4 for more textViews need to be changed
@@ -49,6 +55,8 @@ public class game_interface extends AppCompatActivity {
 
         /* Sets all textViews */
         setTextView();
+
+        ads();
 
         /* Initializing shared preference for highScore*/
         highScore_save = this.getSharedPreferences("HighScoreKey", MODE_PRIVATE);
@@ -561,6 +569,13 @@ public class game_interface extends AppCompatActivity {
         }
     }
 
+    public void ads(){
+        mPublisherAdView = findViewById(R.id.publisherAdView);
+        PublisherAdRequest adRequest = new PublisherAdRequest.Builder().addTestDevice("E3542B9251FEF6F208F4E780AAE9FCD8").build();
+        mPublisherAdView.loadAd(adRequest);
+
+    }
+
     /* Return to previous move in game */
     public void undo(View view){
         if(!undo){
@@ -577,4 +592,5 @@ public class game_interface extends AppCompatActivity {
             Toast.makeText(this,"Already Undo", Toast.LENGTH_LONG).show();
         }
     }
+
 }
